@@ -65,7 +65,7 @@ def resultscrape():
             "tpng is",
             driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[31]/td[4]").text
             )
-                row = 2
+        row = 2
         for n in range(14):
             row = str(row)
             subject = driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr["+row+"]/td[1]")
@@ -82,7 +82,6 @@ def resultscrape():
             row += 1
     except Exception:
         pass
-
 
 for key,value in cred.items():
     login(key, value)
