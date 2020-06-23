@@ -39,6 +39,7 @@ def empty():
      nk = driver.find_element_by_name("txtId")
      nk.clear()
      pw = driver.find_element_by_name("txtPassword")
+     
 
 def choosingresult():
     try:
@@ -54,6 +55,7 @@ def choosingresult():
         EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/font[1]/b")))
     except Exception:
         pass
+
 
 def resultscrape():
     try:
@@ -83,10 +85,12 @@ def resultscrape():
     except Exception:
         pass
 
-for key,value in cred.items():
-    login(key, value)
-    choosingresult()
-    resultscrape()
-    driver.back()
-    driver.back()
-    empty()
+
+def run():
+    for key,value in cred.items():
+        login(key, value)
+        choosingresult()
+        resultscrape()
+        driver.back()
+        driver.back()
+        empty()
