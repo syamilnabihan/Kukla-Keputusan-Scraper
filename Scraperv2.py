@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from time import sleep
-from textprogram import Loginlist as cred
+from numlist import Loginlist as cred
 
 PATH = "C:\Program Files\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
