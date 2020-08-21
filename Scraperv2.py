@@ -73,7 +73,6 @@ def resultscrape():
             subject = driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr["+row+"]/td[1]")
             mark = driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr["+row+"]/td[4]")
             grade = driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr["+row+"]/td[5]")
-            name = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[1]/td[2]")
             address1 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[2]/td[2]")
             address2 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[3]/td[2]")
             address3 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[4]/td[2]")
