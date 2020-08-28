@@ -1,4 +1,5 @@
 #/usr/bin/python3
+import csv
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -6,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from time import sleep
-from textprogram import Loginlist as cred
+from textprogram import trylist as cred
 
 PATH = "C:\Program Files\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
@@ -57,27 +58,34 @@ def choosingresult():
         pass
 
 
+name = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[1]/td[2]")
+address1 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[2]/td[2]")
+address2 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[3]/td[2]")
+address3 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[4]/td[2]")
+address4 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[5]/td[2]")
+addressfull = (address1.text+address2.text+address3.text+address4.text)
+homeroom = driver.find_element_by_xpath("")
+kelas = driver.find_element_by_xpath("")
+png = driver.find_element_by_xpath("")
+
+
 def resultscrape():
+
     try:
-        name = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[1]/td[2]")
         print(
             name.text,
             "png is",
             driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[30]/td[4]").text,
             "tpng is",
-            driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[31]/td[4]").text
-            )
+        )
+
         row = 2
         for n in range(14):
             row = str(row)
             subject = driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr["+row+"]/td[1]")
             mark = driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr["+row+"]/td[4]")
             grade = driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr["+row+"]/td[5]")
-            address1 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[2]/td[2]")
-            address2 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[3]/td[2]")
-            address3 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[4]/td[2]")
-            address4 = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[5]/td[2]")
-            addressfull = (address1.text+address2.text+address3.text+address4.text)
+            
             row = int(row)
             print(str(row-1)+".",subject.text, mark.text, grade.text)
             row += 1
@@ -93,3 +101,5 @@ def run():
         driver.back()
         driver.back()
         empty()
+        
+run()
