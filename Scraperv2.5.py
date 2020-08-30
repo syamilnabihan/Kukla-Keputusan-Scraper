@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from time import sleep
-from textprogram import testlist as cred
+from textprogram import trylist as cred
 
 
 # START
@@ -16,6 +16,7 @@ exams = [None,"Ujian Selaras 1", "Ujian Selaras 2", "Semester(Gred SPM)", "Semes
           "Percubaan SPM"]
 semesters = [None,"1", "2", "3", "4"] 
 confirmation = False
+
 
 with open ('test.csv','w', newline = '') as f:
     fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
@@ -31,17 +32,17 @@ with open ('test.csv','w', newline = '') as f:
         print("\nexam choice is:", exams[(examchoice)], "semester choice is semester:", semesters[(semesterchoice)])
         confirmation = input("\nconfirm y/n ?: ")
         if confirmation == "y":
-            print("opening browser...")
+            print("opening browser. . .")
             break
         elif confirmation == "n":
             confirmation = False
         else:
             print("couldn't quite catch that :/")
             confirmation = False
-
-
+    sleep(2)
     PATH = "C:\Program Files\chromedriver.exe"
     driver = webdriver.Chrome(PATH)
+    
     # getting to e-semakan
     driver.get("http://mrsmkualaklawang.edu.my/e-keputusan/login.asp")
 
@@ -67,10 +68,10 @@ with open ('test.csv','w', newline = '') as f:
             semester.select_by_visible_text((semesters[(semesterchoice)]))
             driver.find_element_by_name("Submit").click()
             # wait for result page to load
-            Result = WebDriverWait(driver, 2).until(
+            Result = WebDriverWait(driver, 3).until(
             EC.presence_of_element_located((By.XPATH, "/html/body/div/table[1]/tbody/tr/td/font[1]/b")))
         except Exception:
-            print("error")
+            print("error choosing result")
             pass
 
 
@@ -124,16 +125,23 @@ with open ('test.csv','w', newline = '') as f:
             grade9 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[10]/td[4]")).text
             grade10 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[11]/td[4]")).text
             
-            thewriter.writerow({'Nama': name,'Kelas': kelas,'Homeroom': homeroom,subject1 : mark1,subject2 : mark2,subject3 : mark3,subject4 : mark4,
-                subject5 : mark5,
-                subject6 : mark6,
-                subject7 : mark7,
-                subject8 : mark8,
-                subject9 : mark9,
-                subject10 : mark10,
-                               
+            thewriter.writerow({'Nama': name,
+                                'Kelas': kelas,
+                                'Homeroom': homeroom,
+                                subject1 : mark1,
+                                subject2 : mark2,
+                                subject3 : mark3,
+                                subject4 : mark4,
+                                subject5 : mark5,
+                                subject6 : mark6,
+                                subject7 : mark7,
+                                subject8 : mark8,
+                                subject9 : mark9,
+                                subject10 : mark10,
+                                        
                             })
-            
+            driver.back()
+            driver.back()
     #    except:
     #        pass
 
@@ -158,8 +166,6 @@ with open ('test.csv','w', newline = '') as f:
                 login()
                 choosingresult(key,value)
                 resultscrapePNG()
-                driver.back()
-                driver.back()
                 empty()
             # examchoice other than 4 uses SPM values
         elif examchoice == 1 or 2 or 3 or 5:
@@ -167,9 +173,7 @@ with open ('test.csv','w', newline = '') as f:
                 login(key,value)
                 choosingresult()
                 resultscrapeSPM()
-                driver.back
-                driver.back
-                #empty()
-                    
+                empty()
+        
     program()            
     driver.quit()
