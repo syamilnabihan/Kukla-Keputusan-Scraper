@@ -47,6 +47,7 @@ def empty():
      nk = driver.find_element_by_name("txtId")
      nk.clear()
      pw = driver.find_element_by_name("txtPassword")
+     pw.clear()
      
 
 def choosingresult():
