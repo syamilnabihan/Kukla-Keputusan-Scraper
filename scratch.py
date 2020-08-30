@@ -2,12 +2,13 @@
 """
 Nama,Kelas,Homeroom,BM,BI,SEJ,MM,AM,PHY,CHE,PJ,SIV,PAI,BIO,SENI,SENI
 """
-"""
-import csv
 
+import csv
+Name = "Nama"
+number = 74
 
 with open ('mycsv.csv','a+', newline = '') as f:
-    fieldnames = ['Nama', 'Kelas','Homeroom','BM','BI','SEJ','MM','AM','PHY','CHE','PJ','SIV',
+    fieldnames = [Name, 'Kelas','Homeroom','BM','BI','SEJ','MM','AM','PHY','CHE','PJ','SIV',
                    'PAI','BIO']
     thewriter = csv.DictWriter(f, fieldnames = fieldnames)
     
@@ -15,7 +16,8 @@ with open ('mycsv.csv','a+', newline = '') as f:
     
     
     thewriter.writeheader()
-    thewriter.writerow(pngdata)
+    thewriter.writerow({Name:number})
+
 """
 name = "name"
 kelas = "Class"
@@ -25,4 +27,4 @@ for i in range(5):
     for i in range(5):
         print(i, end =",")
     print("")
-    
+"""    

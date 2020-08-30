@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from time import sleep
-from textprogram import targetlist as cred
+from textprogram import testlist as cred
 
 PATH = "C:\Program Files\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
@@ -96,7 +96,7 @@ def resultscrape():
             
             row = int(row)
         #    print(str(row-1)+".",subject.text, mark.text, grade.text)
-            print(subject.text,mark.text, end =",")
+            print(subject.text, end =",")
         
         #   thewriter.writerow({'Nama':name,})
             row += 1
