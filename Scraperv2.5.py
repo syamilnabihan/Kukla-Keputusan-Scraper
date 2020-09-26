@@ -120,6 +120,7 @@ def resultscrapeSPM():
     grade9 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[10]/td[4]")).text
     grade10 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[11]/td[4]")).text
     
+<<<<<<< Updated upstream
     with open ('test.csv','w', newline = '') as f:
         fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
                         '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
@@ -140,6 +141,50 @@ def resultscrapeSPM():
                         subject10 : mark10,
                                 
                     })
+=======
+    if withgrades == True:
+        with open ('test.csv','a+', newline = '') as f:
+            fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
+                            '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
+                            '  Prinsip Akaun','  Pendidikan Seni Visual']
+            thewriter = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')    
+            thewriter.writerow({'Nama': name,
+                            'Kelas': kelas,
+                            'Homeroom': homeroom,
+                            subject1 : mark1, subject1 : grade1,
+                            subject2 : mark2, subject1 : grade1,
+                            subject3 : mark3, subject1 : grade1,
+                            subject4 : mark4, subject1 : grade1,
+                            subject5 : mark5, subject1 : grade1,
+                            subject6 : mark6, subject1 : grade1,
+                            subject7 : mark7, subject1 : grade1,
+                            subject8 : mark8, subject1 : grade1,
+                            subject9 : mark9, subject1 : grade1,
+                            subject10 : mark10, subject1 : grade1,
+                                    
+                        })
+    elif withgrades == False:
+        with open ('test.csv','a+', newline = '') as f:
+            fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
+                            '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
+                            '  Prinsip Akaun','  Pendidikan Seni Visual']
+            thewriter = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')    
+            thewriter.writerow({'Nama': name,
+                            'Kelas': kelas,
+                            'Homeroom': homeroom,
+                            subject1 : mark1, 
+                            subject2 : mark2, 
+                            subject3 : mark3, 
+                            subject4 : mark4, 
+                            subject5 : mark5, 
+                            subject6 : mark6, 
+                            subject7 : mark7,
+                            subject8 : mark8, 
+                            subject9 : mark9,
+                            subject10 : mark10, 
+                                    
+                        })      
+>>>>>>> Stashed changes
     driver.back()
     driver.back()
 #    except:
