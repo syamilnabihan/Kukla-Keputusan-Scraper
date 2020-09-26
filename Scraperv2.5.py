@@ -28,9 +28,11 @@ while confirmation == False:
     withgradeschoice = (input(" *optional: Do you want to include grades in the file?\n y: yes (with grades)\n n: no (without grades)"))
     if withgradeschoice == "y" or "Y":
         withgrades = True
+        withgradeschoice = "with grades"
     else:
         withgrades = False
-    print("\nexam choice is:", exams[(examchoice)], "semester choice is semester:", semesters[(semesterchoice)],"grades: "+ withgrades )
+        withgradeschoice = "without grades"
+    print("\nexam choice is:", exams[(examchoice)], "\nsemester choice is semester:", semesters[(semesterchoice)],"\nwith grades: "+ withgradeschoice )
     confirmation = input("\nconfirm y/n ?: ")
     if confirmation == "y" or "Y":
         print("opening browser. . .")
@@ -286,8 +288,8 @@ def program():
     # examchoice 4 is for PNG values
     if examchoice == 4:
         for key,value in cred.items():
-            login()
-            choosingresult(key,value)
+            login(key,value)
+            choosingresult()
             resultscrapePNG()
             empty()
         # examchoice other than 4 uses SPM values
@@ -295,7 +297,7 @@ def program():
         with open ('test.csv','w', newline = '') as f:
             fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
                   '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
-                  '  Prinsip Akaun','  Pendidikan Seni Visual']
+                  '  Prinsip Akaun','  Pendidikan Seni Visual', '  Pend.Jasmani dan Kesihatan', '  Sivik dan Kewarganegaraan']
             thewriter = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
             thewriter.writeheader()
             for key,value in cred.items():
