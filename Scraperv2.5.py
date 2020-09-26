@@ -15,6 +15,7 @@ from Login_dict import trylist as cred
 exams = [None,"Ujian Selaras 1", "Ujian Selaras 2", "Semester(Gred SPM)", "Semester(Gred PNG)",
           "Percubaan SPM"]
 semesters = [None,"1", "2", "3", "4"] 
+withgrades = False
 confirmation = False
 
 
@@ -24,7 +25,16 @@ confirmation = False
 while confirmation == False:
     examchoice = int(input("Choose exam:\n 1:Ujian Selaras 1\n 2:Ujian Selaras 2\n 3:Semester(Gred SPM)\n 4:Semester(Gred PNG)\n 5:Percubaan SPM \nyour exam choice: "))
     semesterchoice = int(input("\nChoose semester:\n 1:Semester 1\n 2:Semester 2\n 3:Semester 3\n 4:Semester 4\nyour semester choice: "))
-    print("\nexam choice is:", exams[(examchoice)], "semester choice is semester:", semesters[(semesterchoice)])
+    withgradesinput = (input("*optional: Do you want to print the results with grades?\npress\n y: yes (with grades\n n: no (without grades)"))
+    # Setting withgrades as True or False
+    if withgradesinput == "y" or "Y":
+        withgrades = True
+    elif withgradesinput == "n" or "N":
+            withgrades = False
+    else:
+        withgrades = False        
+    # Scraping confirmation    
+    print("\nexam choice is:", exams[(examchoice)], "\nsemester choice is semester:", semesters[(semesterchoice)], "grades")
     confirmation = input("\nconfirm y/n ?: ")
     if confirmation == "y" or "Y":
         print("opening browser. . .")
@@ -72,21 +82,20 @@ def choosingresult():
 
 # Scraping function for SPM marks or Selaras marks
 def resultscrapeSPM():
-#     try:
+    # student's data
     namepos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[1]/td[2]")
-    name = namepos.text
+    homeroompos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[3]/td[4]")
+    kelaspos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[4]/td[4]")
     address1pos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[2]/td[2]")
     address2pos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[3]/td[2]")
     address3pos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[4]/td[2]")
     address4pos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[5]/td[2]")
-    addressfull = (address1pos.text+address2pos.text+address3pos.text+address4pos.text)
-    homeroompos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[3]/td[4]")
+    name = namepos.text
     homeroom = homeroompos.text
-    kelaspos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[4]/td[4]")
     kelas = kelaspos.text
+    addressfull = (address1pos.text+address2pos.text+address3pos.text+address4pos.text)
     
-    iddata = str(name +","+ kelas +","+ homeroom +",")
-    #Results scraping
+    # subjects variables
     subject1 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[2]/td[1]")).text
     subject2 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[3]/td[1]")).text
     subject3 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[4]/td[1]")).text
@@ -97,7 +106,8 @@ def resultscrapeSPM():
     subject8 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[9]/td[1]")).text
     subject9 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[10]/td[1]")).text
     subject10 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[11]/td[1]")).text
-        
+    
+    # subject's mark    
     mark1 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[2]/td[3]")).text
     mark2 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[3]/td[3]")).text
     mark3 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[4]/td[3]")).text
@@ -109,6 +119,7 @@ def resultscrapeSPM():
     mark9 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[10]/td[3]")).text
     mark10 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[11]/td[3]")).text
     
+    #subject's grade
     grade1 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[2]/td[4]")).text
     grade2 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[3]/td[4]")).text
     grade3 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[4]/td[4]")).text
@@ -148,7 +159,104 @@ def resultscrapeSPM():
 
 # Scraping function for PNG marks
 def resultscrapePNG():
-    pass
+    # student's data
+    namepos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[1]/td[2]")
+    homeroompos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[3]/td[4]")
+    kelaspos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[4]/td[4]")
+    address1pos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[2]/td[2]")
+    address2pos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[3]/td[2]")
+    address3pos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[4]/td[2]")
+    address4pos = driver.find_element_by_xpath("/html/body/div/table[3]/tbody/tr[5]/td[2]")
+    name = namepos.text
+    homeroom = homeroompos.text
+    kelas = kelaspos.text
+    addressfull = (address1pos.text+address2pos.text+address3pos.text+address4pos.text)
+    
+    # Subject variables
+    subject1 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[2]/td[1]")).text
+    subject2 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[3]/td[1]")).text
+    subject3 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[4]/td[1]")).text
+    subject4 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[5]/td[1]")).text
+    subject5 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[6]/td[1]")).text
+    subject6 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[7]/td[1]")).text
+    subject7 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[8]/td[1]")).text
+    subject8 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[9]/td[1]")).text
+    subject9 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[10]/td[1]")).text
+    subject10 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[11]/td[1]")).text
+    subject11 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[12]/td[1]")).text 
+    
+    # subject's mark    
+    mark1 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[2]/td[4]")).text
+    mark2 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[3]/td[4]")).text
+    mark3 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[4]/td[4]")).text
+    mark4 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[5]/td[4]")).text
+    mark5 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[6]/td[4]")).text
+    mark6 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[7]/td[4]")).text
+    mark7 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[8]/td[4]")).text
+    mark8 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[9]/td[4]")).text
+    mark9 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[10]/td[4]")).text
+    mark10 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[11]/td[4]")).text
+    mark11 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[12]/td[4]")).text
+    
+    #subject's grade
+    grade1 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[2]/td[5]")).text
+    grade2 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[3]/td[5]")).text
+    grade3 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[4]/td[5]")).text
+    grade4 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[5]/td[5]")).text
+    grade5 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[6]/td[5]")).text
+    grade6 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[7]/td[5]")).text
+    grade7 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[8]/td[5]")).text
+    grade8 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[9]/td[5]")).text
+    grade9 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[10]/td[5]")).text
+    grade10 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[11]/td[5]")).text
+    grade11 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[12]/td[5]")).text
+    
+    if withgrades == True:
+        with open ('test.csv','a+', newline = '') as f:
+            fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
+                            '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
+                            '  Prinsip Akaun','  Pendidikan Seni Visual']
+            thewriter = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')    
+            thewriter.writerow({'Nama': name,
+                            'Kelas': kelas,
+                            'Homeroom': homeroom,
+                            subject1 : mark1, subject1 : grade1,
+                            subject2 : mark2, subject1 : grade1,
+                            subject3 : mark3, subject1 : grade1,
+                            subject4 : mark4, subject1 : grade1,
+                            subject5 : mark5, subject1 : grade1,
+                            subject6 : mark6, subject1 : grade1,
+                            subject7 : mark7, subject1 : grade1,
+                            subject8 : mark8, subject1 : grade1,
+                            subject9 : mark9, subject1 : grade1,
+                            subject10 : mark10, subject1 : grade1,
+                            subject11 : mark11, subject1 : grade1,
+                                    
+                        })
+    elif withgrades == False:
+        with open ('test.csv','a+', newline = '') as f:
+            fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
+                            '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
+                            '  Prinsip Akaun','  Pendidikan Seni Visual']
+            thewriter = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')    
+            thewriter.writerow({'Nama': name,
+                            'Kelas': kelas,
+                            'Homeroom': homeroom,
+                            subject1 : mark1, 
+                            subject2 : mark2, 
+                            subject3 : mark3, 
+                            subject4 : mark4, 
+                            subject5 : mark5, 
+                            subject6 : mark6, 
+                            subject7 : mark7,
+                            subject8 : mark8, 
+                            subject9 : mark9,
+                            subject10 : mark10, 
+                            subject11 : mark11, 
+                                    
+                        })      
+    driver.back()
+    driver.back()
 
 # Clearing the login box
 def empty():
