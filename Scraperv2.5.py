@@ -17,6 +17,7 @@ exams = [None,"Ujian Selaras 1", "Ujian Selaras 2", "Semester(Gred SPM)", "Semes
 semesters = [None,"1", "2", "3", "4"] 
 confirmation = False
 withgrades = False
+csv_file = 'out.csv'
 
 
 
@@ -25,14 +26,14 @@ withgrades = False
 while confirmation == False:
     examchoice = int(input("Choose exam:\n 1:Ujian Selaras 1\n 2:Ujian Selaras 2\n 3:Semester(Gred SPM)\n 4:Semester(Gred PNG)\n 5:Percubaan SPM \nyour exam choice: "))
     semesterchoice = int(input("\nChoose semester:\n 1:Semester 1\n 2:Semester 2\n 3:Semester 3\n 4:Semester 4\nyour semester choice: "))
-    withgradeschoice = (input(" *optional: Do you want to include grades in the file?\n y: yes (with grades)\n n: no (without grades)"))
+    withgradeschoice = (input("\n *optional: Do you want to include grades in the file?\n y: yes (with grades)\n n: no (without grades)"))
     if withgradeschoice == "y" or "Y":
         withgrades = True
         withgradeschoice = "with grades"
-    else:
+    elif withgradeschoice == "n" or "N":
         withgrades = False
         withgradeschoice = "without grades"
-    print("\nexam choice is:", exams[(examchoice)], "\nsemester choice is semester:", semesters[(semesterchoice)],"\nwith grades: "+ withgradeschoice )
+    print("\nexam choice is:", exams[(examchoice)], "\nsemester choice is semester:", semesters[(semesterchoice)],"\nwith grades: "+ str(withgrades) )
     confirmation = input("\nconfirm y/n ?: ")
     if confirmation == "y" or "Y":
         print("opening browser. . .")
@@ -129,7 +130,7 @@ def resultscrapeSPM():
     grade10 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[11]/td[4]")).text
     
     if withgrades == True:
-        with open ('test.csv','a+', newline = '') as f:
+        with open (csv_file,'a+', newline = '') as f:
             fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
                             '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
                             '  Prinsip Akaun','  Pendidikan Seni Visual']
@@ -137,20 +138,20 @@ def resultscrapeSPM():
             thewriter.writerow({'Nama': name,
                             'Kelas': kelas,
                             'Homeroom': homeroom,
-                            subject1 : mark1, subject1 : grade1,
-                            subject2 : mark2, subject1 : grade2,
-                            subject3 : mark3, subject1 : grade3,
-                            subject4 : mark4, subject1 : grade4,
-                            subject5 : mark5, subject1 : grade5,
-                            subject6 : mark6, subject1 : grade6,
-                            subject7 : mark7, subject1 : grade7,
-                            subject8 : mark8, subject1 : grade8,
-                            subject9 : mark9, subject1 : grade9,
-                            subject10 : mark10, subject1 : grade10,
+                            subject1 : mark1 + grade1,
+                            subject2 : mark2 + grade2,
+                            subject3 : mark3 + grade3,
+                            subject4 : mark4 + grade4,
+                            subject5 : mark5 + grade5,
+                            subject6 : mark6 + grade6,
+                            subject7 : mark7 + grade7,
+                            subject8 : mark8 + grade8,
+                            subject9 : mark9 + grade9,
+                            subject10 : mark10 + grade10,
                                     
                         })
     elif withgrades == False:
-        with open ('test.csv','a+', newline = '') as f:
+        with open (csv_file,'a+', newline = '') as f:
             fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
                             '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
                             '  Prinsip Akaun','  Pendidikan Seni Visual']
@@ -228,7 +229,7 @@ def resultscrapePNG():
     grade11 = (driver.find_element_by_xpath("/html/body/div/table[4]/tbody/tr[12]/td[5]")).text
     
     if withgrades == True:
-        with open ('test.csv','a+', newline = '') as f:
+        with open (csv_file,'a+', newline = '') as f:
             fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
                             '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
                             '  Prinsip Akaun','  Pendidikan Seni Visual', '  Pend.Jasmani dan Kesihatan', '  Sivik dan Kewarganegaraan']
@@ -236,21 +237,21 @@ def resultscrapePNG():
             thewriter.writerow({'Nama': name,
                             'Kelas': kelas,
                             'Homeroom': homeroom,
-                            subject1 : mark1, subject1 : grade1,
-                            subject2 : mark2, subject2 : grade2,
-                            subject3 : mark3, subject3 : grade3,
-                            subject4 : mark4, subject4 : grade4,
-                            subject5 : mark5, subject5 : grade5,
-                            subject6 : mark6, subject6 : grade6,
-                            subject7 : mark7, subject7 : grade7,
-                            subject8 : mark8, subject8 : grade8,
-                            subject9 : mark9, subject9 : grade9,
-                            subject10 : mark10, subject10 : grade10,
-                            subject11 : mark11, subject11 : grade11,
+                            subject1 : mark1 + grade1,
+                            subject2 : mark2 + grade2,
+                            subject3 : mark3 + grade3,
+                            subject4 : mark4 + grade4,
+                            subject5 : mark5 + grade5,
+                            subject6 : mark6 + grade6,
+                            subject7 : mark7 + grade7,
+                            subject8 : mark8 + grade8,
+                            subject9 : mark9 + grade9,
+                            subject10 : mark10 + grade10,
+                            subject11 : mark11 + grade11,
                                     
                         })
     elif withgrades == False:
-        with open ('test.csv','a+', newline = '') as f:
+        with open (csv_file,'a+', newline = '') as f:
             fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
                             '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
                             '  Prinsip Akaun','  Pendidikan Seni Visual', '  Pend.Jasmani dan Kesihatan', '  Sivik dan Kewarganegaraan' ]
@@ -287,6 +288,12 @@ def program():
     
     # examchoice 4 is for PNG values
     if examchoice == 4:
+        with open (csv_file,'w', newline = '') as f:
+            fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
+                        '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
+                        '  Prinsip Akaun','  Pendidikan Seni Visual', '  Pend.Jasmani dan Kesihatan', '  Sivik dan Kewarganegaraan']
+            thewriter = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
+            thewriter.writeheader()
         for key,value in cred.items():
             login(key,value)
             choosingresult()
@@ -294,10 +301,10 @@ def program():
             empty()
         # examchoice other than 4 uses SPM values
     elif examchoice == 1 or 2 or 3 or 5:
-        with open ('test.csv','w', newline = '') as f:
+        with open (csv_file,'w', newline = '') as f:
             fieldnames = ['Nama', 'Kelas','Homeroom','  Bahasa Melayu','  Bahasa Inggeris','  Sejarah','  Mathematics',
-                  '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
-                  '  Prinsip Akaun','  Pendidikan Seni Visual', '  Pend.Jasmani dan Kesihatan', '  Sivik dan Kewarganegaraan']
+                        '  Additional Mathematics','  Physics','  Chemistry','  Pendidikan Agama Islam','  Biology',
+                        '  Prinsip Akaun','  Pendidikan Seni Visual']
             thewriter = csv.DictWriter(f, fieldnames = fieldnames, extrasaction='ignore')
             thewriter.writeheader()
             for key,value in cred.items():
